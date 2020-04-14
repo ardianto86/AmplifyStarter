@@ -1,0 +1,28 @@
+type Event @model {
+  id: ID!
+  name: String!
+  where: String!
+  when: String!
+  description: String!
+  eventStatus: String!
+  capacity: Int!
+  participants: [User] @connection(keyName: "byEvent", fields: ["id"])
+  comments: [Comment] @connection(keyName: "byEvent", fields: ["id"])
+}
+
+type Comment @model  
+  @key(name: "byEvent", fields: ["commentID", "content", "createdAt"]) {
+  id: ID!
+  commentID: ID!
+  content: String!
+  createdAt: String!
+}
+
+type User @model
+  @key(name: "byEvent", fields: ["userID", "fullname"]) {
+  id: ID!
+  userID: ID!
+  username: String!
+  fullname: String!
+  dateOfBirth: String!
+}
